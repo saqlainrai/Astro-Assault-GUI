@@ -28,3 +28,5 @@ C:\Users\HP\Desktop\FSPs\GraphicalGameProject\GraphicalGameProject\obj\Debug\Gra
 C:\Users\HP\Desktop\FSPs\GraphicalGameProject\GraphicalGameProject\obj\Debug\GraphicalGameProject.csproj.CopyComplete
 C:\Users\HP\Desktop\FSPs\GraphicalGameProject\GraphicalGameProject\obj\Debug\GraphicalGameProject.exe
 C:\Users\HP\Desktop\FSPs\GraphicalGameProject\GraphicalGameProject\obj\Debug\GraphicalGameProject.pdb
+C:\Users\HP\Desktop\FSPs\GraphicalGameProject\GraphicalGameProject\obj\Debug\GraphicalGameProject.StartScreen.resources
+C:\Users\HP\Desktop\FSPs\GraphicalGameProject\GraphicalGameProject\obj\Debug\GraphicalGameProject.SelectionForm.resources

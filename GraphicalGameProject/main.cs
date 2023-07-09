@@ -10,21 +10,25 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using EZInput;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using GraphicalGameProject.GL;
+using GraphicalGameProject.Properties;
 
 namespace GraphicalGameProject
 {
     public partial class main : Form
     {
-        List<PictureBox> bullets = new List<PictureBox>();
-        List<PictureBox> enemies = new List<PictureBox>();
-        List<PictureBox> enemyBullets = new List<PictureBox>();
-        System.Windows.Forms.ProgressBar progressBarEnemy;
-        string enemy1Direction = "MovingRight";
-        string enemy2Direction = "MovingRight";
+        List<PictureBox> healths = new List<PictureBox>();
+        Random random = new Random();
+        List<PictureBox> bullets;
+        List<Enemy> enemies;
+        List<PictureBox> enemyBullets;
         int timer = 0;
+        int health = 3;
         public main()
         {
             InitializeComponent();
+            globalProgress.Location = new System.Drawing.Point(1140, 30);
+            flash.Location = new System.Drawing.Point(1115, 20);
         }
         public void timerMovement()
         {
@@ -60,13 +64,14 @@ namespace GraphicalGameProject
             }
             for (int i = 0; i < enemies.Count; i++)
             {
-                moveEnemy(enemies[i], ref enemy1Direction);
+                //moveEnemy(enemies[i]);
+                enemies[i].move();
             }
 
 
             if (timer % 13 == 0)
             {
-                PictureBox enemyBullet = createBullet(Properties.Resources.orange, enemies[0]);
+                PictureBox enemyBullet = createBullet(Properties.Resources.orange, enemies[0].enemy);
                 this.Controls.Add(enemyBullet);
                 enemyBullets.Add(enemyBullet);
             }
@@ -81,10 +86,8 @@ namespace GraphicalGameProject
             p.Location = new System.Drawing.Point(source.Left + (source.Width / 2) - 5, source.Top);
             return p;
         }
-        private PictureBox createEnemy(Image g)
+        private PictureBox createEnemy(Image g, int x1, int x2)
         {
-            Random random = new Random();
-
             PictureBox p = new PictureBox();
             p.Image = g;
             p.BackColor = Color.Transparent;
@@ -92,29 +95,29 @@ namespace GraphicalGameProject
             p.Width = g.Width;
             p.Height = g.Height;
 
-            p.Left = random.Next(1, 101);
-            p.Top = random.Next(15, 50);
+            p.Left = random.Next(x1, x2);
+            p.Top = random.Next(50, 100);
             return p;
         }
-        private void moveEnemy(PictureBox enemy, ref string enemyDirection)
+        private void moveEnemy(Enemy e)
         {
-            if (enemyDirection == "MovingLeft")
+            if (e.direction == "MovingLeft")
             {
-                enemy.Left -= 10;
-                progressBarEnemy.Left -= 10;
+                e.enemy.Left -= 10;
+                enemies[0].progressBar.Left -= 10;
             }
-            if (enemyDirection == "MovingRight")
+            if (e.direction == "MovingRight")
             {
-                enemy.Left += 10;
-                progressBarEnemy.Left += 10;
+                e.enemy.Left += 10;
+                enemies[0].progressBar.Left += 10;
             }
-            if ((enemy.Left + enemy.Width) > this.Width - 150)
+            if ((e.enemy.Left + e.enemy.Width) > this.Width - 150)
             {
-                enemyDirection = "MovingLeft";
+                e.direction = "MovingLeft";
             }
-            if (enemy.Left <= 75)
+            if (e.enemy.Left <= 75)
             {
-                enemyDirection = "MovingRight";
+                e.direction = "MovingRight";
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -164,10 +167,12 @@ namespace GraphicalGameProject
                     if (progressBar.Value >= 10)
                     {
                         progressBar.Value -= 50;
+                        globalProgress.Value -= 50;
                     }
                     else
                     {
                         progressBar.Value = 0;
+                        globalProgress.Value = 0;
                     }
                     this.Controls.Remove(enemyBullets[x]);
                     enemyBullets.Remove(enemyBullets[x]);
@@ -175,8 +180,19 @@ namespace GraphicalGameProject
             }
             if (progressBar.Value == 0)
             {
+                if (health != 0)
+                {
+                    health--;
+                    int count = healths.Count;
+                    this.Controls.Remove(healths[count - 1]);
+                    healths.Remove(healths[count - 1]);
+                    //MessageBox.Show("Player Died!");
+                    Reload();
+                }
+            }
+            if (health == 0)
+            {
                 timer1.Enabled = false;
-                //MessageBox.Show("You Lose", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 Form f = new EndScreen();
                 this.Hide();
                 f.Show();
@@ -211,29 +227,76 @@ namespace GraphicalGameProject
             //this.Controls.Clear();
             bullets = new List<PictureBox>();
             enemyBullets = new List<PictureBox>();
-            enemies = new List<PictureBox>();
+            enemies = new List<Enemy>();
             
-            progressBarEnemy = new System.Windows.Forms.ProgressBar();
+            System.Windows.Forms.ProgressBar progressBarEnemy1 = new System.Windows.Forms.ProgressBar();
+            System.Windows.Forms.ProgressBar progressBarEnemy2 = new System.Windows.Forms.ProgressBar();
+            System.Windows.Forms.ProgressBar progressBarEnemy3 = new System.Windows.Forms.ProgressBar();
 
             // random object(prompt random values) is created in the function
-            enemy1Direction = "MovingLeft";
-            enemy2Direction = "MovingRight";
+            string enemy1Direction = "MovingLeft";
+            string enemy2Direction = "MovingRight";
+
             timer = 0;
+            health = 3;
 
-            PictureBox enemy = createEnemy(Properties.Resources.enemy2);
-            progressBarEnemy.Left = enemy.Left + 10;
-            progressBarEnemy.Top = enemy.Top - 12;
+            for (int i=0; i < health; i++)
+            {
+                Image icon = Properties.Resources.heart;
+                
+                PictureBox p = new PictureBox();
+                p.Image = icon;
+                p.Width = icon.Width;
+                p.Height = icon.Height;
+                p.BackColor = Color.Transparent;
+                p.Location = new System.Drawing.Point(1145 + (i*20), 10);
+                this.Controls.Add(p);
+                healths.Add(p);
+            }
 
-            progressBarEnemy.Value = 100;
-            progressBarEnemy.Enabled = true;
-            progressBarEnemy.Size = new Size(80, 17);
-            this.Controls.Add(progressBarEnemy);
+            PictureBox enemy1 = createEnemy(Properties.Resources.enemy1, 1, 500);
+            PictureBox enemy2= createEnemy(Properties.Resources.enemy2, 501, 1000);
+            PictureBox enemy3= createEnemy(Properties.Resources.enemy3, 200, 800);
+            
+            progressBarEnemy1.Left = enemy1.Left + 10;
+            progressBarEnemy1.Top = enemy1.Top - 12;
+            progressBarEnemy1.Value = 100;
+            progressBarEnemy1.Enabled = true;
+            progressBarEnemy1.Size = new Size(80, 17);
+            
+            progressBarEnemy2.Left = enemy2.Left + 10;
+            progressBarEnemy2.Top = enemy2.Top - 12;
+            progressBarEnemy2.Value = 100;
+            progressBarEnemy2.Enabled = true;
+            progressBarEnemy2.Size = new Size(80, 17);
+            
+            progressBarEnemy3.Left = enemy3.Left + 30;
+            progressBarEnemy3.Top = enemy3.Top - 12;
+            progressBarEnemy3.Value = 100;
+            progressBarEnemy3.Enabled = true;
+            progressBarEnemy3.Size = new Size(80, 17);
 
-            enemies.Add(enemy);
-            this.Controls.Add(enemy);
+            Enemy temp = new Enemy(enemy1, progressBarEnemy1, enemy1Direction);
+            Enemy temp2 = new Enemy(enemy2, progressBarEnemy2, enemy2Direction);
+            Enemy temp3 = new Enemy(enemy3, progressBarEnemy3, enemy1Direction);
+
+            enemies.Add(temp);
+            enemies.Add(temp2);
+            enemies.Add(temp3);
+            this.Controls.Add(enemy1);
+            this.Controls.Add(progressBarEnemy1);
+            this.Controls.Add(enemy2);
+            this.Controls.Add(progressBarEnemy2);
+            this.Controls.Add(enemy3);
+            this.Controls.Add(progressBarEnemy3);
 
             player.Top += 400;
             progressBar.Top += 400;
+        }
+        private void Reload()
+        {
+            progressBar.Value = 100;
+            globalProgress.Value = 100;
         }
     }
 }
