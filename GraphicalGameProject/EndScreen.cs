@@ -29,6 +29,13 @@ namespace GraphicalGameProject
         }
         private void exit_Click(object sender, EventArgs e)
         {
+            foreach (Form form in Application.OpenForms.Cast<Form>().ToArray())
+            {
+                if (form != this && !form.Visible)
+                {
+                    form.Close(); // Close the hidden form
+                }
+            }
             this.Close();
         }
     }
