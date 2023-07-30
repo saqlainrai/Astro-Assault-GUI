@@ -19,7 +19,7 @@ namespace newGameProject
 
         private void restart_Click(object sender, EventArgs e)
         {
-            Form form = new Form1();
+            Form form = new Main();
             form.Show();
             this.Hide();
         }

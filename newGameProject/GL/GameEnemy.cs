@@ -15,6 +15,6 @@ namespace newGameProject.GL
             this.CurrentCell = startCell;
             objectDirection = direction;
         }
-        public abstract GameCell move();
+        public abstract void move();
     }
 }

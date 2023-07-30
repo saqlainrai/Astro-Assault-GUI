@@ -10,5 +10,6 @@ namespace newGameProject.DL
     public class BulletDL
     {
         public static List<Bullet> allBullets = new List<Bullet>();
+        public static List<Bullet> enemyBullets = new List<Bullet>();
     }
 }

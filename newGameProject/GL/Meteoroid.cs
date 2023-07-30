@@ -13,7 +13,7 @@ namespace newGameProject.GL
         {
             
         }
-        public override GameCell move()
+        public override void move()
         {
             //used to switch between cells
             GameCell currentCell = this.CurrentCell;
@@ -22,7 +22,6 @@ namespace newGameProject.GL
             
             //this will always remove the previous object
             currentCell.setGameObject(Game.getBlankGameObject());
-            return null ;
         }
     }
 }

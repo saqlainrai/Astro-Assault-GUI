@@ -31,6 +31,7 @@
             this.btnQuit = new System.Windows.Forms.Button();
             this.btnOptions = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
+            this.options1 = new newGameProject.Options();
             this.SuspendLayout();
             // 
             // btnQuit
@@ -75,6 +76,16 @@
             this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
+            // options1
+            // 
+            this.options1.BackColor = System.Drawing.Color.Transparent;
+            this.options1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.options1.Location = new System.Drawing.Point(135, 37);
+            this.options1.Name = "options1";
+            this.options1.Size = new System.Drawing.Size(784, 431);
+            this.options1.TabIndex = 6;
+            this.options1.Click += new System.EventHandler(this.options1_Click);
+            // 
             // SelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -82,6 +93,7 @@
             this.BackgroundImage = global::newGameProject.Properties.Resources.WelcomeScreen;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1014, 525);
+            this.Controls.Add(this.options1);
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.btnPlay);
@@ -99,5 +111,6 @@
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.Button btnPlay;
+        private Options options1;
     }
 }

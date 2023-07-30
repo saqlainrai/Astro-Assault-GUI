@@ -15,11 +15,12 @@ namespace newGameProject
         public SelectionForm()
         {
             InitializeComponent();
+            options1.Visible = false;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            Form form = new Form1();
+            Form form = new Main();
             this.Hide();
             form.Show();
         }
@@ -32,7 +33,12 @@ namespace newGameProject
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
+            options1.Visible = true;
+        }
 
+        private void options1_Click(object sender, EventArgs e)
+        {
+            options1.Visible = false;
         }
     }
 }

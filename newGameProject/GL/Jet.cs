@@ -13,7 +13,7 @@ namespace newGameProject.GL
         {
 
         }
-        public override GameCell move()
+        public override void move()
         {
             GameCell currentCell = this.CurrentCell;
             GameCell nextCell = currentCell.nextCell(objectDirection);
@@ -33,7 +33,12 @@ namespace newGameProject.GL
                     objectDirection = GameDirection.Left;
                 }
             }
-            return nextCell;
+        }
+        public virtual Bullet createBullet()
+        {
+            GameCell bulletCell = this.CurrentCell.nextCell(GameDirection.Down);
+            Bullet b = new Bullet(Properties.Resources.red, bulletCell, GameObjectType.ENEMY);
+            return b;
         }
     }
 }

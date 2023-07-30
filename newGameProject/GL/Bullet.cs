@@ -19,7 +19,16 @@ namespace newGameProject.GL
         {
             //used to switch between cells
             GameCell currentCell = this.CurrentCell;
-            GameCell nextCell = currentCell.nextCell(GameDirection.Up);
+
+            GameCell nextCell = currentCell;
+            if (reference == GameObjectType.PLAYER)
+            {
+                nextCell = currentCell.nextCell(GameDirection.Up);
+            }
+            else if (reference == GameObjectType.ENEMY)
+            {
+                nextCell = currentCell.nextCell(GameDirection.Down);
+            }
             this.CurrentCell = nextCell;
 
             //this will always remove the previous object
