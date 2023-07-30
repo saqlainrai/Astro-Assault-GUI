@@ -8,24 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GraphicalGameProject
+namespace newGameProject
 {
     public partial class SelectionForm : Form
     {
         public SelectionForm()
         {
             InitializeComponent();
-            btnPlay.FlatStyle = FlatStyle.Flat;
-            btnPlay.FlatAppearance.BorderSize = 0;
-            btnOptions.FlatStyle = FlatStyle.Flat;
-            btnOptions.FlatAppearance.BorderSize = 0;
-            btnQuit.FlatStyle = FlatStyle.Flat;
-            btnQuit.FlatAppearance.BorderSize = 0;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            Form form = new main();
+            Form form = new Form1();
             this.Hide();
             form.Show();
         }
@@ -33,6 +27,7 @@ namespace GraphicalGameProject
         private void btnQuit_Click(object sender, EventArgs e)
         {
             this.Close();
+            Application.Exit();
         }
 
         private void btnOptions_Click(object sender, EventArgs e)

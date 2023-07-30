@@ -8,25 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GraphicalGameProject
+namespace newGameProject
 {
     public partial class EndScreen : Form
     {
         public EndScreen()
         {
             InitializeComponent();
-            exit.FlatStyle = FlatStyle.Flat;
-            exit.FlatAppearance.BorderSize = 0;
-            restart.FlatStyle = FlatStyle.Flat;
-            restart.FlatAppearance.BorderSize = 0;
         }
 
-        private void restrart_Click(object sender, EventArgs e)
+        private void restart_Click(object sender, EventArgs e)
         {
-            Form form = new main();
+            Form form = new Form1();
             form.Show();
             this.Hide();
         }
+
         private void exit_Click(object sender, EventArgs e)
         {
             foreach (Form form in Application.OpenForms.Cast<Form>().ToArray())

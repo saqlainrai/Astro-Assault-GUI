@@ -18,8 +18,9 @@ namespace newGameProject
         Random random = new Random();
         GameGrid grid;
         GamePlayer fighter;
-        int timer = 0;
         bool loop1 = true;
+        int timer = 0;
+        int score = 0;
 
         public Form1()
         {
@@ -42,6 +43,17 @@ namespace newGameProject
 
             progressBar1.Show();
             progressBar1.BringToFront();
+
+            Jet jet1 = new Jet(Properties.Resources.enemy1, grid.getCell(7, 46), GameDirection.Left);
+            Jet jet2 = new Jet(Properties.Resources.enemy2, grid.getCell(3, 40), GameDirection.Right);
+            Jet jet3 = new Jet(Properties.Resources.enemy3, grid.getCell(2, 30), GameDirection.Left);
+            Jet jet4 = new Jet(Properties.Resources.spaceship1, grid.getCell(5, 10), GameDirection.Right);
+            Jet jet5 = new Jet(Properties.Resources.spaceship2, grid.getCell(4, 20), GameDirection.Left);
+            EnemyDL.allJets.Add(jet1);
+            EnemyDL.allJets.Add(jet2);
+            EnemyDL.allJets.Add(jet3);
+            EnemyDL.allJets.Add(jet4);
+            EnemyDL.allJets.Add(jet5);
         }
         void printMaze(GameGrid grid)
         {
@@ -58,8 +70,9 @@ namespace newGameProject
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer = 3;
-            //timer++;
+            timer++;
+            //timer = 3;
+            textBox1.Text = score.ToString();
             if (Keyboard.IsKeyPressed(Key.LeftArrow) || Keyboard.IsKeyPressed(Key.A))
             {
                 fighter.move(GameDirection.Left);
@@ -71,7 +84,6 @@ namespace newGameProject
             if (Keyboard.IsKeyPressed(Key.UpArrow) || Keyboard.IsKeyPressed(Key.W))
             {
                 fighter.move(GameDirection.Up);
-                //progressBar1.Value -= 10;
             }
             if (Keyboard.IsKeyPressed(Key.DownArrow) || Keyboard.IsKeyPressed(Key.S))
             {
@@ -81,14 +93,14 @@ namespace newGameProject
             if (Keyboard.IsKeyPressed(Key.Space))
             {
                 GameCell temp = grid.getCell(fighter.CurrentCell.X - 1, fighter.CurrentCell.Y);
-                Bullet bullet = new Bullet(Properties.Resources.pallet, temp, GameObjectType.PLAYER);
+                Bullet bullet = new Bullet(Properties.Resources.fireBullet, temp, GameObjectType.PLAYER);
                 BulletDL.allBullets.Add(bullet);
             }
             if (Keyboard.IsKeyPressed(Key.Z))
             {
                 Jet jet1 = new Jet(Properties.Resources.enemy1, grid.getCell(7, 46), GameDirection.Left);
                 Jet jet2 = new Jet(Properties.Resources.enemy2, grid.getCell(3, 40), GameDirection.Right);
-                Jet jet3 = new Jet(Properties.Resources.enemy3, grid.getCell(1, 30), GameDirection.Left);
+                Jet jet3 = new Jet(Properties.Resources.enemy3, grid.getCell(2, 30), GameDirection.Left);
                 Jet jet4 = new Jet(Properties.Resources.spaceship1, grid.getCell(5, 10), GameDirection.Right);
                 Jet jet5 = new Jet(Properties.Resources.spaceship2, grid.getCell(4, 20), GameDirection.Left);
                 EnemyDL.allJets.Add(jet1);
@@ -98,33 +110,86 @@ namespace newGameProject
                 EnemyDL.allJets.Add(jet5);
             }
 
-            // moving Bullets
-            for (int i = 0; i < BulletDL.allBullets.Count; i++)
-            {
-                GameCell reference = BulletDL.allBullets[i].CurrentCell;
-                GameCell nextCell = reference.nextCell(GameDirection.Up);
-                if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.NONE)
-                {
-                    BulletDL.allBullets[i].CurrentCell = nextCell;
-                    reference.setGameObject(Game.getBlankGameObject());
-                }
-                else if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.ENEMY)
-                {
-                    progressBar1.Value -= 10;
-                    reference.setGameObject(Game.getBlankGameObject());
-                    nextCell.setGameObject(Game.getBlankGameObject());
-                    BulletDL.allBullets.Remove(BulletDL.allBullets[i]);
-                }
-                else
-                {
-                    reference.setGameObject(Game.getBlankGameObject());
-                    BulletDL.allBullets.Remove(BulletDL.allBullets[i]);
-                }
-            }
+            //if (loop1)
+            //{
+                //foreach (Meteoroid j in EnemyDL.allMeteoroids)
+                //{
+                //    foreach (Bullet i in BulletDL.allBullets)
+                //    {
+                //        GameCell reference = i.CurrentCell;
+                //        GameCell nextCell = reference.nextCell(GameDirection.Up);
+                //        if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.ENEMY)
+                //        {
+                //            BulletDL.allBullets.Remove(i);
+                //            EnemyDL.allMeteoroids.Remove(j);
+                //        }
+                //        i.move();
+                //    }
+                //    j.move();
+                //}
+                //for (int i = 0, j = 0; i < EnemyDL.allMeteoroids.Count; i++, j++)
+                //{
+                //    //for (int j = 0; j < BulletDL.allBullets.Count; j++)
+                //    //{
+                //        GameCell reference = BulletDL.allBullets[j].CurrentCell;
+                //        GameCell nextCell = reference.nextCell(GameDirection.Up);
+                //        if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.ENEMY)
+                //        {
+                //            BulletDL.allBullets.Remove(BulletDL.allBullets[j]);
+                //            EnemyDL.allMeteoroids.Remove(EnemyDL.allMeteoroids[i]);
+                //        }
+                //        else
+                //        {
+                //            BulletDL.allBullets[j].move();
+                //        }
+                //    //}
+                //    EnemyDL.allMeteoroids[i].move();
+                //}
+            //    loop1 = false;
+            //}
+            //else
+            //{
+            //    loop1 = true;  
+            //}
 
             //loop1 will reduce the execution to one half
             if (loop1)
             {
+                // moving Bullets
+                for (int i = 0; i < BulletDL.allBullets.Count; i++)
+                {
+                    //GameCell reference = BulletDL.allBullets[i].CurrentCell;
+                    //GameCell nextCell = reference.nextCell(GameDirection.Up);
+                    //if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.NONE)
+                    //{
+                    //    BulletDL.allBullets[i].CurrentCell = nextCell;
+                    //    reference.setGameObject(Game.getBlankGameObject());
+                    //}
+                    //else if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.ENEMY)
+                    //{
+                    //    score += 5;
+                    //    reference.setGameObject(Game.getBlankGameObject());
+                    //    nextCell.setGameObject(Game.getBlankGameObject());
+                    //    //nextCell.CurrentGameObject.Collided = true;
+                    //    BulletDL.allBullets.Remove(BulletDL.allBullets[i]);
+                    //}
+                    //else
+                    //{
+                    //    reference.setGameObject(Game.getBlankGameObject());
+                    //    BulletDL.allBullets.Remove(BulletDL.allBullets[i]);
+                    //}
+                    BulletDL.allBullets[i].move();
+                    
+                }
+
+                //foreach (Meteoroid i in EnemyDL.allMeteoroids)
+                //{
+                //    if (i.Collided == true)
+                //    {
+                //        EnemyDL.allMeteoroids.Remove(i);
+                //    }
+                //}
+
                 //moving enemies
                 for (int x = 0; x < EnemyDL.allMeteoroids.Count; x++)
                 {
@@ -148,6 +213,19 @@ namespace newGameProject
                     //    EnemyDL.allMeteoroids.Remove(EnemyDL.allMeteoroids[x]);
                     //}
 
+                    GameCell reference = EnemyDL.allMeteoroids[x].CurrentCell;
+                    GameCell nextCell = reference.nextCell(GameDirection.Down);
+                    if (nextCell.CurrentGameObject.GameObjectType == GameObjectType.PLAYER)
+                    {
+                        if (progressBar1.Value < 10)
+                        {
+                            GameOver();
+                        }
+                        else
+                        {
+                            progressBar1.Value -= 10;
+                        }
+                    }
                     EnemyDL.allMeteoroids[x].move();
                 }
                 for (int y = 0; y < EnemyDL.allJets.Count; y++)
@@ -180,25 +258,28 @@ namespace newGameProject
                 loop1 = true;
             }
 
-            if (timer % 13 == 0)
+            if (timer % 23 == 0)
             {
                 int x = random.Next(1, 15);
                 int y = random.Next(1, 49);
                 Meteoroid temp = new Meteoroid(Properties.Resources.meteoroid1, grid.getCell(x, y));
+                //temp.Index = EnemyDL.allMeteoroids.Count;
                 EnemyDL.allMeteoroids.Add(temp);
             }
-            else if (timer % 14 == 0)
+            else if (timer % 41 == 0)
             {
                 int x = random.Next(1, 10);
                 int y = random.Next(10, 49);
                 Meteoroid temp = new Meteoroid(Properties.Resources.meteoroid2, grid.getCell(x, y));
+                //temp.Index = EnemyDL.allMeteoroids.Count;
                 EnemyDL.allMeteoroids.Add(temp);
             }
-            else if (timer % 15  == 0)
+            else if (timer % 51 == 0)
             {
                 int x = random.Next(1, 10);
                 int y = random.Next(1, 40);
                 Meteoroid temp = new Meteoroid(Properties.Resources.meteoroid3, grid.getCell(x, y));
+                //temp.Index = EnemyDL.allMeteoroids.Count;
                 EnemyDL.allMeteoroids.Add(temp);
             }
 
@@ -208,6 +289,12 @@ namespace newGameProject
                 EnemyDL.allJets.Add(jet);
                 timer = 0;
             }
+        }
+        private void GameOver()
+        {
+            Form form = new EndScreen();
+            form.Show();
+            this.Close();
         }
     }
 }

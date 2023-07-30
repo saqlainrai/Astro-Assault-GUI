@@ -15,5 +15,16 @@ namespace newGameProject.GL
             this.CurrentCell = currentCell;
             this.reference = reference;
         }
+        public GameCell move()
+        {
+            //used to switch between cells
+            GameCell currentCell = this.CurrentCell;
+            GameCell nextCell = currentCell.nextCell(GameDirection.Up);
+            this.CurrentCell = nextCell;
+
+            //this will always remove the previous object
+            currentCell.setGameObject(Game.getBlankGameObject());
+            return null;
+        }
     }
 }

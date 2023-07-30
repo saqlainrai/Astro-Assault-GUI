@@ -12,3 +12,6 @@ C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.
 C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\EZInput.dll
 C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\EZInput.xml
 C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.csproj.CopyComplete
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.EndScreen.resources
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.SelectionForm.resources
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.StartScreen.resources
