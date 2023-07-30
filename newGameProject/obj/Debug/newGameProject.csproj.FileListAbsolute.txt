@@ -1,0 +1,14 @@
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\newGameProject.exe.config
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\newGameProject.exe
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\newGameProject.pdb
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.csproj.SuggestedBindingRedirects.cache
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.Form1.resources
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.Properties.Resources.resources
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.csproj.GenerateResource.cache
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.exe
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.pdb
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\EZInput.dll
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\bin\Debug\EZInput.xml
+C:\Users\HP\Desktop\FSPs\newGameProject\newGameProject\obj\Debug\newGameProject.csproj.CopyComplete
